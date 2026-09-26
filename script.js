@@ -87,10 +87,10 @@ document.getElementById('comparisonList').innerHTML=comparisons.map(([label,titl
 
 
 gallery.addEventListener('click',event=>{const button=event.target.closest('.drivePhoto');if(button)openViewer(Number(button.dataset.index))});
-viewer.querySelector('.photoViewerClose').addEventListener('click',closeViewer);
+viewer.querySelector('.photoViewerClose').addEventListener('click',event=>{event.stopPropagation();closeViewer()});
 previous.addEventListener('click',event=>{event.stopPropagation();if(activeIndex>0){activeIndex--;renderViewer()}});
 next.addEventListener('click',event=>{event.stopPropagation();if(activeIndex<photos.length-1){activeIndex++;renderViewer()}});
 viewer.querySelector('figure').addEventListener('click',event=>event.stopPropagation());
-viewer.addEventListener('click',closeViewer);
+viewer.addEventListener('click',event=>{if(event.target===viewer)closeViewer()});
 addEventListener('keydown',event=>{if(viewer.hidden)return;if(event.key==='Escape')closeViewer();if(event.key==='ArrowLeft'&&activeIndex>0){activeIndex--;renderViewer()}if(event.key==='ArrowRight'&&activeIndex<photos.length-1){activeIndex++;renderViewer()}});
 loadGallery();
